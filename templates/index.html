@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+  <!-- begin template -->
+  <div class="navbar navbar-custom navbar-fixed-top">
+   <div class="navbar-header"><a class="navbar-brand" href="#">Samuel Magondu | Demo </a>
+    <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </a>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <li>&nbsp;</li>
+    </ul>
+    <form class="navbar-form">
+      <div class="form-group" style="display:inline;">
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Category 1</a></li>
+              <li><a href="#">Category 2</a></li>
+              <li><a href="#">Category 3</a></li>
+              <li><a href="#">Category 4</a></li>
+              <li><a href="#">Category 5</a></li> 
+            </ul>
+          </div>
+          <input type="text" class="form-control" placeholder="What are searching for?">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container-fluid" id="main">
+  <div class="row">
+    <div id="map-canvas" style="height:300px"></div>
+    <div class="col-xs-12" style="margin-top:350px">
+     <table class="table table-bordered table-stripped ">
+      <thead>
+        <tr id="head">
+          <th>Text</th>
+          <th>Number</th>
+          <th>Location</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="body"></tbody>
+    </table>     
+  </div>
+</div>
+</div>
+<!-- end template -->
+
+{% endblock content %}
+{% block js %}
+
+<script>
+function handler(response) {
+  if (response.columns){
+   document.getElementById("head").innerHTML = ""
+   for (var i=0; i < response.columns.length;i++)
+   {
+    document.getElementById("head").innerHTML += "<th>" + response.columns[i] + "</th>"
+  }
+}
+for (var i = 0; i < response.rows.length; i++) {
+        //console.log(response.rows);
+        var item = response.rows[i];
+        var body = "<tr>" 
+
+        if (item) {
+          for (var j = 0; j < item.length; j++){
+            body += "<td>" +item[j] + "</td>";
+          }
+        }
+        body += "</tr>"
+        document.getElementById("body").innerHTML += body;
+      }
+    }
+    </script>
+    <!--<script src="https://www.googleapis.com/fusiontables/v2/tables/14CoGxBdCA2URHZq8nlLrR8swp3AFU1JSijak0rY1/templates?callback=handler&key=AIzaSyDp-SUMb87oArzDC66fGyVkptlCae3bI-c"></script>-->
+    <script src="https://www.googleapis.com/fusiontables/v2/query?sql=select%20*%20from%2014CoGxBdCA2URHZq8nlLrR8swp3AFU1JSijak0rY1&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ&callback=handler"></script>
+    {% endblock js%}
