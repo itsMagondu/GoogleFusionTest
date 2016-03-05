@@ -14,35 +14,16 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
+      <li class="active"><a href="/flush">Flush the DB</a></li>
       <li>&nbsp;</li>
     </ul>
-    <form class="navbar-form">
-      <div class="form-group" style="display:inline;">
-        <div class="input-group">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Category 1</a></li>
-              <li><a href="#">Category 2</a></li>
-              <li><a href="#">Category 3</a></li>
-              <li><a href="#">Category 4</a></li>
-              <li><a href="#">Category 5</a></li> 
-            </ul>
-          </div>
-          <input type="text" class="form-control" placeholder="What are searching for?">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
-        </div>
-      </div>
-    </form>
   </div>
 </div>
 
 <div class="container-fluid" id="main">
   <div class="row">
     <div id="map-canvas" style="height:300px"></div>
+    <!--<div id="visualization"></div>-->
     <div class="col-xs-12" style="margin-top:350px">
      <table class="table table-bordered table-stripped ">
       <thead>
@@ -88,5 +69,5 @@ for (var i = 0; i < response.rows.length; i++) {
     }
     </script>
     <!--<script src="https://www.googleapis.com/fusiontables/v2/tables/14CoGxBdCA2URHZq8nlLrR8swp3AFU1JSijak0rY1/templates?callback=handler&key=AIzaSyDp-SUMb87oArzDC66fGyVkptlCae3bI-c"></script>-->
-    <script src="https://www.googleapis.com/fusiontables/v2/query?sql=select%20*%20from%2014CoGxBdCA2URHZq8nlLrR8swp3AFU1JSijak0rY1&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ&callback=handler"></script>
+    <script src="https://www.googleapis.com/fusiontables/v2/query?sql=select%20*%20from%201UbnbcY4LOlfyrXzW3DwKmziMqYwUr1KOBA0UstY7&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ&callback=handler"></script>
     {% endblock js%}

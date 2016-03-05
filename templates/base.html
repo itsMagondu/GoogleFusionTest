@@ -12,12 +12,15 @@
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+		<link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
 	</head>
 	{% block content%}{% endblock content%}
 		<!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?v=3&amp;key=AIzaSyCbrQhFZ1je_6JBQqxL4EUc4UDz5pVplXM&libraries=places" type="text/javascript"></script>
+		<!--Google.com seems to be down. Use .co.ke-->
+		<script type="text/javascript" src="https://www.google.co.ke/jsapi"></script>
 		<script src="{% static 'js/scripts.js' %}"></script>
 		{% block js %}{% endblock js%}
 	</body>
