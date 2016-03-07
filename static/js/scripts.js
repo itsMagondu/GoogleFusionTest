@@ -1,9 +1,10 @@
 
 var key = 'AIzaSyCbrQhFZ1je_6JBQqxL4EUc4UDz5pVplXM';
 var table = '1UbnbcY4LOlfyrXzW3DwKmziMqYwUr1KOBA0UstY7';
+var body = "";//table info
 
 google.load('visualization', '1', { packages: ['table'] });
-google.setOnLoadCallback(drawTable);
+//google.setOnLoadCallback(drawTable);
 
 $(document).ready(function(){/* google maps -----------------------------------------------------*/
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -41,7 +42,6 @@ function initialize() {
     var geocoder = new google.maps.Geocoder();
     // Geocode the address
     geocoder.geocode({'location':evt.latLng}, function(results, status){
-      console.log(results);
         if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
             add_marker(map,evt)
               add_location(evt.latLng,results)
@@ -85,8 +85,8 @@ function add_location(latlng,results){
    dataType: "json",
    success: function(data) {
     //do a check as to what message was returned. Either error or success
-    alert('data successfully stored on the app');
     drawTable();
+    alert('data successfully stored on the app');
    }
 });
 }
@@ -112,22 +112,18 @@ function refresh_map () {
 }
 function drawTable() {
         var query = "SELECT * FROM " + table + "key=" +key;
-        document.getElementById('visualization').clear()
+        $('#body').empty();
+        console.log(query);
 
          $.ajax({
     type: 'GET',
     url:"https://www.googleapis.com/fusiontables/v2/query?sql=select%20*%20from%201UbnbcY4LOlfyrXzW3DwKmziMqYwUr1KOBA0UstY7&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ",
     dataType: "json",
+
    success: function(data) {
-      if (data.columns){
-   document.getElementById("head").innerHTML = ""
-   for (var i=0; i < data.columns.length;i++)
-   {
-    document.getElementById("head").innerHTML += "<th>" + data.columns[i] + "</th>"
-  }
-}
+    console.log(data)
 for (var i = 0; i < data.rows.length; i++) {
-        //console.log(response.rows);
+        console.log(data.rows[i]);
         var item = data.rows[i];
         var body = "<tr>" 
 
