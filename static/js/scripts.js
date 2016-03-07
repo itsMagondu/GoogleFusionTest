@@ -19,12 +19,7 @@ function initialize() {
     scrollWheel: false,
     zoom: 13
   };
-  
-  var marker = new google.maps.Marker({
-    position: latlng,
-    url: '/',
-    animation: google.maps.Animation.DROP
-  }); 
+   
   
   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
@@ -35,7 +30,7 @@ function initialize() {
           },
           map: map
         });
-  marker.setMap(map);
+
 
     google.maps.event.addListener(map, 'click', function(evt) {
 
@@ -43,8 +38,8 @@ function initialize() {
     // Geocode the address
     geocoder.geocode({'location':evt.latLng}, function(results, status){
         if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
-            add_marker(map,evt)
-              add_location(evt.latLng,results)
+            add_map_marker(map,evt.latLng)
+            add_location(evt.latLng,results)
     // show an error if it's not
         }else alert("Addess not found");
     });
@@ -52,21 +47,6 @@ function initialize() {
 }
 /* end google maps -----------------------------------------------------*/
 });
-
-function add_marker(map,e){
-    new google.maps.Marker({
-            position: e.latLng,
-            map: map,
-            icon: {
-              path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-              fillOpacity: .2,
-              strokeColor: 'red',
-              strokeWeight: .5,
-              scale: 10
-            }
-          });
-}
-
 
 function add_location(latlng,results){
   ///Store the found location on the db and also on fusiontables
@@ -85,56 +65,24 @@ function add_location(latlng,results){
    dataType: "json",
    success: function(data) {
     //do a check as to what message was returned. Either error or success
-    drawTable();
+    drawTable(res,lat,lng);
     alert('data successfully stored on the app');
    }
 });
 }
 
-function refresh_map () {
-
-  //Hide big marker. Show small one
-  var mapOptions = {
-    center: latlng,
-    scrollWheel: false,
-    zoom: 13
-  };
-  
-    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-  var layer = new google.maps.FusionTablesLayer({
-          query: {
-            select: 'Latitude',
-            from: '1UbnbcY4LOlfyrXzW3DwKmziMqYwUr1KOBA0UstY7',
-          },
-          map: map
-        });
+function add_map_marker(map,latlng) {
+  //var latlng = new google.maps.LatLng(lat,lng);
+  var marker = new google.maps.Marker({
+    position: latlng,
+    map:map,
+    url: '/',
+    animation: google.maps.Animation.DROP
+  }); 
+  marker.setMap(map);
 }
-function drawTable() {
-        var query = "SELECT * FROM " + table + "key=" +key;
-        $('#body').empty();
-        console.log(query);
-
-         $.ajax({
-    type: 'GET',
-    url:"https://www.googleapis.com/fusiontables/v2/query?sql=select%20*%20from%201UbnbcY4LOlfyrXzW3DwKmziMqYwUr1KOBA0UstY7&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ",
-    dataType: "json",
-
-   success: function(data) {
-    console.log(data)
-for (var i = 0; i < data.rows.length; i++) {
-        console.log(data.rows[i]);
-        var item = data.rows[i];
-        var body = "<tr>" 
-
-        if (item) {
-          for (var j = 0; j < item.length; j++){
-            body += "<td>" +item[j] + "</td>";
-          }
-        }
-        body += "</tr>"
-        document.getElementById("body").innerHTML += body;
-      }}
-
-      });
+function drawTable(location,lat,lng) {
+    body += '<tr><td>'+location+'</td><td>'+lng+'</td><td>'+lat+'</td></tr>';
+    $('#body').empty();
+    document.getElementById("body").innerHTML += body;
        }
