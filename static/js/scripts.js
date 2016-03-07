@@ -73,7 +73,6 @@ function add_location(latlng,results){
   var lat = latlng.lat();
   var lng = latlng.lng();
   var res = '';
-  var d = new Date().toTimeString();
 
   results.forEach(function(r) {
     res += r['formatted_address'] + ' | ';

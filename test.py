@@ -7,3 +7,7 @@ django.setup()
 from mappy.views import StoreLocation as s
 x = s()
 x.store_to_fusion('est') 
+
+error_message = '{"error": { "errors": [ {"domain": "global","reason": "authError","message": "Invalid Credentials","locationType": "header", "location": "Authorization" }  ], "code": 401, "message": "Invalid Credentials"}}'
+
+success_message = '{ "kind": "fusiontables#sqlresponse", "columns": [  "rowid" ], "rows": [  [ "4002"  ]]}'
